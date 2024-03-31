@@ -1,8 +1,8 @@
-package testing;
+package TicTacToe;
 
-import testing.logic.Game;
-import testing.logic.GameLogik;
-import testing.logic.Winner;
+import TicTacToe.logic.Game;
+import TicTacToe.logic.GameLogik;
+import TicTacToe.logic.Winner;
 
 import javax.swing.*;
 import java.awt.*;

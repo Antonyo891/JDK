@@ -1,6 +1,6 @@
-package testing;
+package TicTacToe;
 
-public class Test {
+public class TicTacToe {
     public static void main(String[] args) {
         new GameWindow();
     }

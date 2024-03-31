@@ -1,4 +1,4 @@
-package testing.logic;
+package TicTacToe.logic;
 
 import java.util.Arrays;
 import java.util.Random;

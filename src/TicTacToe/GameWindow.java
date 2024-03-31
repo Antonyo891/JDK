@@ -1,6 +1,4 @@
-package testing;
-
-import testing.logic.Game;
+package TicTacToe;
 
 import javax.swing.*;
 import java.awt.*;

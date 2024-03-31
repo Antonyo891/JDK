@@ -1,4 +1,4 @@
-package testing.logic;
+package TicTacToe.logic;
 
 public enum Winner {
     Human,
