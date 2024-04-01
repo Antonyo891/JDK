@@ -1,5 +1,5 @@
 ### 1. Выполнить все задания семинара, если они не были решены, без ограничений по времени; <br>
-[tictactoe](https://github.com/Antonyo891/JDK/tree/master/src/TicTacToe), [chat](https://github.com/Antonyo891/JDK/tree/master/src/server)
+[tictactoe](https://github.com/Antonyo891/JDK/tree/master/src/TicTacToe), [chat](https://github.com/Antonyo891/JDK/tree/master/src/server) <br>
 Отправлять сообщения из текстового поля сообщения в лог
 по нажатию кнопки или по нажатию клавиши Enter на поле ввода сообщения;
 Продублировать импровизированный лог (историю) чата в файле;
