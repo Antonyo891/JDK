@@ -1,17 +1,15 @@
 package server;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.rmi.server.ServerNotActiveException;
 
 public class ChatClientWindow extends JFrame {
     private final int WINDOWS_WIDTH = 600;
     private final int WINDOWS_HEIGHT = 500;
     private final int WINDOWS_GAP = 100;
-
     private JTextField fieldLogin;
     private JTextField fieldPassword;
     private JTextField fieldServerIP;
@@ -19,22 +17,22 @@ public class ChatClientWindow extends JFrame {
     private JTextField fieldMessageToSend;
     private  JTextArea areaViewMessage;
     private JButton connectingButton;
+    private JButton disconnectingButton;
     private JButton sendMessageButton;
     private JPanel panelServer;
     private JPanel panelSend;
-    StringBuilder messagesFromServer;
-    StringBuilder newMessage;
-    FileWorker fileWorker;
-
-    ChatServerWindow server;
+    private ChatServerWindow chatServerWindow;
+    private Boolean isConnectingWithServer;
+    private StringBuilder messages;
+    private String messageInfo;
 
     public ChatClientWindow(String title, ChatServerWindow chatServerWindow)
-            throws HeadlessException, IOException {
+            throws HeadlessException{
         super(title);
-        this.server = chatServerWindow;
+        this.chatServerWindow = chatServerWindow;
+        isConnectingWithServer = false;
         setBackground(Color.blue);
         setBounds(WINDOWS_GAP,WINDOWS_GAP,WINDOWS_WIDTH,WINDOWS_HEIGHT);
-        fileWorker = new FileWorker(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         panelServer = new JPanel(new GridLayout(2,3, 2,2));
         panelSend = new JPanel();
@@ -46,25 +44,35 @@ public class ChatClientWindow extends JFrame {
         fieldMessageToSend.setColumns(45);
 
         areaViewMessage = new JTextArea();
+        areaViewMessage.setEditable(false);
+        areaViewMessage.setCaret(new DefaultCaret());
+        JScrollPane scrollPane = new JScrollPane(areaViewMessage);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        areaViewMessage.setCaretPosition(areaViewMessage.getDocument().getLength());
         connectingButton = new JButton("Login");
+        disconnectingButton = new JButton("Disconnect");
         sendMessageButton = new JButton("Send");
         panelServer.add(fieldServerIP);
         panelServer.add(fieldServersPort);
         panelServer.add(fieldLogin);
         panelServer.add(fieldPassword);
         panelServer.add(connectingButton);
+        panelServer.add(disconnectingButton);
         panelSend.add(fieldMessageToSend,BorderLayout.CENTER);
         panelSend.add(sendMessageButton,BorderLayout.EAST);
         panelSend.setSize(getWidth(),50);
 
         add(panelServer,BorderLayout.NORTH);
-        add(areaViewMessage);
+        add(scrollPane);
         add(panelSend,BorderLayout.SOUTH);
 
         connectingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    loadMessage();
+                if (!isConnectingWithServer){
+                    isConnectingWithServer = true;
+                    getMessagesFromServer();
+                }
             }
         });
         sendMessageButton.addActionListener(new ActionListener() {
@@ -79,32 +87,45 @@ public class ChatClientWindow extends JFrame {
                 sendMessage();
             }
         });
-        setVisible(true);
-
-
-    }
-
-    private void loadMessage() {
-        if (server.isServerWorking()) {
-            messagesFromServer = server.getMessagesFromServer();
-            System.out.println(messagesFromServer);
-            if (messagesFromServer != null) areaViewMessage.setText(messagesFromServer.toString());
-        }
-    }
-
-    private void sendMessage() {
-        newMessage = new StringBuilder(fieldMessageToSend.getText());
-        System.out.println(fieldMessageToSend.getText());
-        if (server.isServerWorking()) {
-            if (fileWorker.writeMessage()) {
-                System.out.println("message add");
-                fieldMessageToSend.setText("");
+        disconnectingButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (isConnectingWithServer) {
+                    messageInfo = "Disconnect\n";
+                    areaViewMessage.setText(messageInfo);
+                    areaViewMessage.append(chatServerWindow.getMessages().toString());
+                    isConnectingWithServer = false;
+                }
             }
-            else System.out.println("error");
+        });
+        setVisible(true);
+    }
+
+    public void getMessagesFromServer() {
+        if (isConnectingWithServer) {
+            chatServerWindow.getMessagesFromServer();
+            if (chatServerWindow.getMessages()!= null)
+                areaViewMessage.setText(chatServerWindow.getMessages().toString());
+        } else {
+            messageInfo = "NEED TO JOIN THE SERVER\n";
+            areaViewMessage.setText(messageInfo);
+            areaViewMessage.append(chatServerWindow.getMessages().toString());
         }
     }
 
-    public StringBuilder getNewMessage() {
-        return newMessage;
+    public void sendMessage() {
+        if (isConnectingWithServer) {
+            chatServerWindow.setNewMessage(fieldMessageToSend.getText());
+            chatServerWindow.sendMessage();
+            getMessagesFromServer();
+        } else {
+            messageInfo = "NEED TO JOIN THE SERVER\n";
+            areaViewMessage.setText(messageInfo);
+            areaViewMessage.append(chatServerWindow.getMessages().toString());
+        }
+    }
+
+    public void setFieldMessageToSend(String text) {
+        this.fieldMessageToSend.setText(text);
     }
 }

@@ -1,33 +1,34 @@
 package server;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.rmi.server.ServerNotActiveException;
 
-public class ChatServerWindow extends JFrame {
+public class ChatServerWindow extends JFrame{
     private final int WINDOWS_WIDTH = 500;
     private final int WINDOWS_HEIGHT = 550;
     private final int WINDOWS_GAP = 50;
 
-    private boolean isServerWorking = false;
+    private Boolean isServerWorking = false;
     private JButton buttonStart;
     private JButton buttonStop;
     private JPanel panel;
     private JTextArea textArea;
-    private FileWorker server;
-    private StringBuilder messagesFromServer;
-    private ChatClientWindow chatClientWindow;
+    private ServersListener server;
+    ChatClientWindow chatClientWindow;
+    private StringBuilder messages;
+    private String newMessage;
 
     public ChatServerWindow(String title)
             throws HeadlessException, IOException {
         super(title);
+        server = new ChatServer(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setBounds(WINDOWS_GAP,WINDOWS_GAP,WINDOWS_WIDTH,WINDOWS_HEIGHT);
         chatClientWindow = new ChatClientWindow("Chat Client", this);
-        server = new FileWorker(chatClientWindow);
         buttonStart = new JButton("START");
         buttonStop = new JButton("STOP");
         panel = new JPanel(new GridLayout(1,2));
@@ -38,14 +39,11 @@ public class ChatServerWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isServerWorking) {
-                    System.out.println("Server already working");
                     textArea.setText("Server already working");
                 }
                 else {
                     isServerWorking = true;
-                    messagesFromServer = server.readMessagesFromServer();
-                    System.out.println(messagesFromServer);
-                    System.out.println("Server started");
+                    getMessagesFromServer();
                     textArea.setText("Server started");
                 }
             }
@@ -54,12 +52,10 @@ public class ChatServerWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isServerWorking) {
-                    System.out.println("Server stopped");
                     isServerWorking = false;
                     textArea.setText("Server stopped");
                 }
                 else {
-                    System.out.println("Server already stopped");
                     textArea.setText("Server already stopped");
                 }
             }
@@ -70,16 +66,27 @@ public class ChatServerWindow extends JFrame {
 
     }
 
-    public void writeLog(StringBuilder logMessage) {
-        server.writeLog(logMessage,this);
+    public void getMessagesFromServer() {
+        if (isServerWorking)
+            server.getMessagesFromServer();
     }
 
-    public StringBuilder getMessagesFromServer() {
-        return messagesFromServer;
+    public StringBuilder getMessages() {
+        return messages;
     }
 
+    public void setMessages(StringBuilder messages) {
+        this.messages = messages;
+    }
 
-    public boolean isServerWorking() {
-        return isServerWorking;
+    public void setNewMessage(String newMessage) {
+        this.newMessage = newMessage;
+    }
+
+    public void sendMessage() {
+        if (isServerWorking) {
+            server.sendMessage(newMessage);
+            chatClientWindow.setFieldMessageToSend("");
+        }
     }
 }
