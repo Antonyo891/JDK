@@ -28,7 +28,7 @@ public class SemThreeMain {
 //            System.out.println(myCollections.getNext());
 //        }
         Workplace<Person> workplace = new Workplace<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 5; i++) {
             if (new Random().nextInt(2)==0) workplace.addPerson(new Worker());
             else workplace.addPerson(new Slacker());
         }
