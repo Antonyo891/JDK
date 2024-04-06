@@ -1,13 +1,10 @@
 package generelization.person;
 
-import generelization.MyIterator;
 import generelization.collection.MyCollections;
-import generelization.person.Person;
+
 
 public class Workplace<T extends Person> {
     private MyCollections<T> persons;
-    private MyIterator<T> personsIterator;
-
     public Workplace(MyCollections<T> persons) {
         this.persons = persons;
     }
@@ -15,14 +12,36 @@ public class Workplace<T extends Person> {
     public Workplace() {
         this.persons = new MyCollections<>(0);
     }
+    private class MyCollectionIterator<T>{
+        int position = 0;
+        MyCollections<T> collectionsForIterator;
+        int size;
+        public MyCollectionIterator(MyCollections<T> myCollections) {
+            this.size = myCollections.getMyCollection().length;
+            collectionsForIterator = myCollections;
+        }
+
+        public boolean hasNext(){
+            return position < size;
+        }
+        public  T getNext(){
+            if (this.hasNext()) {
+                position++;
+                return (T) collectionsForIterator.getMyCollection()[position-1];
+            }
+            position=0;
+            return (T) collectionsForIterator.getMyCollection()[size-1];
+        }
+    }
+    private MyCollectionIterator<T> personsIterator;
 
     public void addPerson(T person){
         persons.add(person);
     }
     public void getWork(){
-        personsIterator = new MyIterator<>(persons);
-        while (personsIterator.hasNext()){
-            personsIterator.getNext().doWork();
+        personsIterator = new MyCollectionIterator<T>(persons);
+        while (this.personsIterator.hasNext()){
+            this.personsIterator.getNext().doWork();
         }
     }
 
