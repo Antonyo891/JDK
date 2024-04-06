@@ -2,6 +2,7 @@ package generelization;
 
 import generelization.collection.MyCollections;
 import generelization.compare.CompareArrays;
+import generelization.pair.Pair;
 
 public class SemThreeMain {
     public static void main(String[] args) {
@@ -46,21 +47,25 @@ public class SemThreeMain {
 //        Calculator.divide(1,-2L);
 //        Calculator.multiply(-1L,4.0);
 //        Calculator.subtract(213543554353543L,357);
-        MyCollections<Integer> integerMyCollections = new MyCollections<>(10);
-        MyCollections<Integer> integerMyCollections1 = new MyCollections<>(10);
-        MyCollections<Integer> integerMyCollections2 = new MyCollections<>(10);
-        MyCollections<Character> characterMyCollections = new MyCollections<>(10);
-        MyCollections<Character> characterMyCollections1 = new MyCollections<>(10);
-        for (int i = 0; i < 10; i++) {
-            integerMyCollections1.setElement(i,i);
-            integerMyCollections.setElement(i,i);
-            integerMyCollections2.setElement(i+1,i);
-            characterMyCollections.setElement((char) (i),i);
-            characterMyCollections1.setElement((char) (i),i);
-        }
-        System.out.println(CompareArrays.compareArrays(integerMyCollections,integerMyCollections1));
-        System.out.println(CompareArrays.compareArrays(integerMyCollections2,integerMyCollections1));
-        System.out.println(CompareArrays.compareArrays(characterMyCollections,characterMyCollections1));
+//        MyCollections<Integer> integerMyCollections = new MyCollections<>(10);
+//        MyCollections<Integer> integerMyCollections1 = new MyCollections<>(10);
+//        MyCollections<Integer> integerMyCollections2 = new MyCollections<>(10);
+//        MyCollections<Character> characterMyCollections = new MyCollections<>(10);
+//        MyCollections<Character> characterMyCollections1 = new MyCollections<>(10);
+//        for (int i = 0; i < 10; i++) {
+//            integerMyCollections1.setElement(i,i);
+//            integerMyCollections.setElement(i,i);
+//            integerMyCollections2.setElement(i+1,i);
+//            characterMyCollections.setElement((char) (i),i);
+//            characterMyCollections1.setElement((char) (i),i);
+//        }
+//        System.out.println(CompareArrays.compareArrays(integerMyCollections,integerMyCollections1));
+//        System.out.println(CompareArrays.compareArrays(integerMyCollections2,integerMyCollections1));
+//        System.out.println(CompareArrays.compareArrays(characterMyCollections,characterMyCollections1));
+        Pair<Integer,String> pair = new Pair<>(3,"Three");
+        System.out.println(pair.getFirst());
+        System.out.println(pair.getSecond());
+        System.out.println(pair);
 
 
 
