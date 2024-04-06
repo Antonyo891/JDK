@@ -1,4 +1,4 @@
-package generelization;
+package generelization.box;
 
 import java.io.DataInput;
 import java.io.InputStream;

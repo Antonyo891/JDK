@@ -1,9 +1,12 @@
-package generelization;
+package generelization.collection;
+
+import generelization.MyIterator;
 
 import java.util.Arrays;
 
 public class MyCollections <T>  {
     private T[] myCollection;
+    private MyIterator<T> iterator;
     Integer size;
     Integer myCollectionSize;
 
@@ -11,13 +14,15 @@ public class MyCollections <T>  {
         this.size = myCollection.length;
         myCollectionSize = size + 10;
         this.myCollection = Arrays.copyOf(myCollection,myCollectionSize);
+        iterator = new MyIterator<>(this);
     }
 
 
     public MyCollections(Integer size) {
         this.size = size;
         myCollectionSize = size + 10;
-        myCollection = (T[]) new Object[myCollectionSize];
+        this.myCollection = (T[]) new Object[myCollectionSize];
+        iterator = new MyIterator<>(this);
     }
 
     public T[] getMyCollection() {
@@ -41,7 +46,9 @@ public class MyCollections <T>  {
                 else if (i == position) {myCollection[i] = t;}
                 else myCollection[i] = endArray[i - position - 1];
             }
+            iterator = new MyIterator<>(this);
         }
+
     }
 
     public void add(T t){
@@ -59,10 +66,20 @@ public class MyCollections <T>  {
             if (i<position) myCollection[i] = beginArray[i];
             else myCollection[i] = endArray[i-position];
         }
+        iterator = new MyIterator<>(this);
         return result;
+    }
+    public boolean hasNext(){
+        return iterator.hasNext();
+    }
+    public  T getNext(){
+        return iterator.getNext();
     }
     @Override
     public String toString() {
         return Arrays.toString(Arrays.copyOfRange(myCollection,0, size));
     }
+
+
+
 }
