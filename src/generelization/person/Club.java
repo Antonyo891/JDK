@@ -1,6 +1,5 @@
 package generelization.person;
 
-import generelization.MyIterator;
 import generelization.collection.MyCollections;
 
 public class Club <T extends Person> {

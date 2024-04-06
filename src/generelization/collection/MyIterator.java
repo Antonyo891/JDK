@@ -1,4 +1,4 @@
-package generelization;
+package generelization.collection;
 
 import generelization.collection.MyCollections;
 

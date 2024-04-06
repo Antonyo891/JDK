@@ -1,7 +1,5 @@
 package generelization.collection;
 
-import generelization.MyIterator;
-
 import java.util.Arrays;
 
 public class MyCollections <T>  {
@@ -27,6 +25,9 @@ public class MyCollections <T>  {
 
     public T[] getMyCollection() {
         return Arrays.copyOfRange(myCollection,0,size);
+    }
+    public void setElement(T element, Integer position){
+        this.myCollection[position] = element;
     }
 
     public void add(T t,Integer position){
