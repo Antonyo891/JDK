@@ -1,4 +1,4 @@
-# Может быть есть возможность написать калькулятор более просто?...У меня почему-то не получилось.
+# Может быть есть возможность написать калькулятор более просто?...У меня почему-то только [так](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/calculator/Calculator.java) получилось.
 ## HomeWork 
 ### 1. Внедрить итератор из задания 2 в коллекцию, написанную в задании 3 таким образом, чтобы итератор был внутренним классом и, соответственно, объектом в коллекции <br>
 [Workplace.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/person/Workplace.java), [Club.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/person/Club.java).
