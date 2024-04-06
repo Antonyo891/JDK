@@ -1,12 +1,17 @@
-## HomeWork
+# Может быть есть возможность написать калькулятор более просто?...У меня почему-то не получилось.
+## HomeWork 
 ### 1. Внедрить итератор из задания 2 в коллекцию, написанную в задании 3 таким образом, чтобы итератор был внутренним классом и, соответственно, объектом в коллекции <br>
-
+[Workplace.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/person/Workplace.java), [Club.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/person/Club.java).
+![task1](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/picture/HWTaskOne.png)
 ### 2. Написать класс Калькулятор (необобщенный), который содержит обобщенные статические методы: sum(), multiply(), divide(), subtract(). Параметры этих методов – два числа разного типа, над которыми должна быть произведена операция. <br>
-
+[Calculator.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/calculator/Calculator.java)
+![task2](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/picture/HWTaskTwo.png)
 ### 3. Напишите обобщенный метод compareArrays(), который принимает два массива и возвращает true, если они одинаковые, и false в противном случае. Массивы могут быть любого типа данных, но должны иметь одинаковую длину и содержать элементы одного типа. <br>
-
+[CompareArrays.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/compare/CompareArrays.java)
+![task3](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/picture/HWTaskThree.png)
 ### 4. Напишите обобщенный класс Pair, который представляет собой пару значений разного типа. Класс должен иметь методы getFirst(), getSecond() для получения значений пары, а также переопределение метода toString(), возвращающее строковое представление пары. <br>
-
+[Pair.java](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/pair/Pair.java)
+![task3](https://github.com/Antonyo891/JDK/blob/ThirdSminar/src/generelization/picture/HWTaskFour.png)
 ## Seminar:
 ### 1. Создать обобщенный класс с тремя параметрами (T, V, K). Класс содержит три переменные типа (T, V, K), конструктор, принимающий на вход параметры типа (T, V, K), методы возвращающие значения трех переменных. Создать метод, выводящий на консоль имена классов для трех переменных класса.  Наложить ограничения на параметры типа: T должен реализовать интерфейс Comparable (классы оболочки, String),  V должен реализовать интерфейс DataInput и расширять класс InputStream, K должен расширять класс Number. <br>
 
