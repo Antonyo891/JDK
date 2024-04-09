@@ -1,4 +1,9 @@
 package seminar.five.homework;
 
-public class Philosoph {
+import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+
+public class Philosoph extends Thread {
+    private ArrayList<CountDownLatch> countDownLatches;
+
 }
